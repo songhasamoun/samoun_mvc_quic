@@ -59,3 +59,39 @@ function m_insert_user() {
         }
     }
 }
+function m_getupdate_user() {
+    $id = $_GET['id'];
+    $query = "SELECT * FROM user WHERE id = '$id'";
+    include 'connection.php';
+    $result = mysqli_query($connection, $query);
+    $rows = [];
+    if($result && mysqli_num_rows($result)>0) {
+        while($get_result_to_array = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+            $rows[] = $get_result_to_array;
+        }
+    }
+    return $rows;
+}
+
+function m_edit_user() {
+    if(isset($_POST['btn-addUser'])) {
+        $id = $_POST['id'];
+        $username = $_POST['username'];
+        $name = $_POST['name'];
+        $getPassword = $_POST['password'];
+        $password = md5($getPassword);
+        $get_verify_password = $_POST['verify_password'];
+        $verify = md5($get_verify_password);
+        if($password == $verify) {
+            $query = "UPDATE user SET username='$username', name='$name',
+            password='$password' WHERE id='$id'";
+            include 'connection.php';
+            $result = mysqli_query($connection, $query);
+            if($result) {
+                return $result;
+            }else {
+                return "Can't Insert Into Database";
+            }
+        }
+    }
+}
