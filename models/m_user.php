@@ -37,3 +37,25 @@ function m_get_users() {
     }
     return $rows;
 }
+
+function m_insert_user() {
+    if(isset($_POST['btn-addUser'])) {
+        $username = $_POST['username'];
+        $name = $_POST['name'];
+        $getPassword = $_POST['password'];
+        $password = md5($getPassword);
+        $get_verify_password = $_POST['verify_password'];
+        $verify = md5($get_verify_password);
+        if($password == $verify) {
+            $query = "INSERT INTO user (username, name, password)
+            VALUES ('$username', '$name', '$password')";
+            include 'connection.php';
+            $result = mysqli_query($connection, $query);
+            if($result) {
+                return $result;
+            }else {
+                return "Can't Insert Into Database";
+            }
+        }
+    }
+}

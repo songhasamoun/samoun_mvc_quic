@@ -130,32 +130,3 @@ function insert_user(&$data) {
     }
     
 }
-function getUpdate(&$data) {
-    if(!isset($_SESSION['uname'])){
-        $data['page'] = 'login';
-    }else {
-        $data['page'] = 'users/updateUser';
-        $data['user'] = m_getupdate_user();
-    }
-}
-
-function updateUser(&$data) {
-    if(!isset($_SESSION['uname'])){
-        $data['page'] = 'login';
-    }else {
-        $data = m_edit_user();
-        if($data) {
-            header('location:index.php?action=viewUser');
-        }
-    }
-}
-function deleteUser(&$data) {
-    if(!isset($_SESSION['uname'])){
-        $data['page'] = 'login';
-    }else {
-        $data = m_delete_user();
-        if($data) {
-            header('location:index.php?action=viewUser');
-        }
-    }
-}
