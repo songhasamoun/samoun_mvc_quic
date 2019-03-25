@@ -149,3 +149,13 @@ function updateUser(&$data) {
         }
     }
 }
+function deleteUser(&$data) {
+    if(!isset($_SESSION['uname'])){
+        $data['page'] = 'login';
+    }else {
+        $data = m_delete_user();
+        if($data) {
+            header('location:index.php?action=viewUser');
+        }
+    }
+}

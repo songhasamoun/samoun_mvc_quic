@@ -95,3 +95,10 @@ function m_edit_user() {
         }
     }
 }
+function m_delete_user() {
+    $userId = $_GET['id'];
+    $query = "DELETE FROM user WHERE id = '$userId'";
+    include 'connection.php';
+    $result = mysqli_query($connection, $query);
+    return $result;
+}
